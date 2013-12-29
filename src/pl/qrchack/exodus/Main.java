@@ -24,17 +24,22 @@ public class Main extends Activity {
         setContentView(R.layout.main);
         webView = (WebView)findViewById(R.id.fullscreen_content);
         webView.setWebViewClient(new MyWebViewClient() {
-			public void onPageFinished(WebView view, String url) {
+			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				if(url.startsWith("tel:")) {
-					// Open dialer intent
-					// Toast.makeText(view.getContext(), "TODO: Implement dialer intent here", 1000).show();
-					Intent dial = new Intent(Intent.ACTION_DIAL);
-					dial.setData(Uri.parse(url));
+					Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse(url));
 					startActivity(dial);
-					view.goBack();
+					return true;
 				}
 				if(url.startsWith("mailto:")) {
-					Toast.makeText(view.getContext(), "TODO: Implement email intent here", 1000).show();
+					Intent mail = new Intent(Intent.ACTION_SEND);
+					mail.setType("text/plain");
+					mail.putExtra(Intent.EXTRA_EMAIL, new String[] {url.substring(7)});
+					startActivity(mail);
+					return true;
+				}
+				else {
+					view.loadUrl(url);
+					return false;
 				}
 			}
             public void onReceivedError(WebView view, int errorCode, String description, String url) {
