@@ -14,6 +14,8 @@ import android.widget.*;
 import android.content.Context;
 import android.app.*;
 import java.net.*;
+import android.content.pm.PackageManager.*;
+import android.content.pm.*;
 
 public class Main extends Activity {
     WebView webView;
@@ -41,6 +43,20 @@ public class Main extends Activity {
 					intent.setData(Uri.parse(url));
 					intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // this will make such that when user returns to your app, your app is displayed, instead of the email app.
 					startActivity(intent);
+					return true;
+				}
+				if(url.startsWith("fb:")) {
+					try
+					{
+						getApplicationContext().getPackageManager().getPackageInfo("com.facebook.katana", 0);
+						Intent fb = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/"+url.substring(3)));
+						startActivity(fb);
+					}
+					catch (PackageManager.NameNotFoundException e)
+					{
+						Intent fb = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/profile.php?id="+url.substring(3)));
+						startActivity(fb);
+					}
 					return true;
 				}
 				else {
