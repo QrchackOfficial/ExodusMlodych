@@ -16,6 +16,7 @@ import android.app.*;
 import java.net.*;
 import android.content.pm.PackageManager.*;
 import android.content.pm.*;
+import android.content.*;
 
 public class Main extends Activity {
     WebView webView;
@@ -57,6 +58,20 @@ public class Main extends Activity {
 						Intent fb = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/profile.php?id="+url.substring(3)));
 						startActivity(fb);
 					}
+					return true;
+				}
+				if(url.startsWith("yt:")) {
+					Intent intent = null;
+					try {
+        				intent = new Intent(Intent.ACTION_VIEW);
+        				intent.setPackage("com.google.android.youtube");
+     					intent.setData(Uri.parse(url.substring(3)));
+        				startActivity(intent);
+    				} catch (ActivityNotFoundException e) {
+        				intent = new Intent(Intent.ACTION_VIEW);
+       					intent.setData(Uri.parse(url.substring(3)));
+        				startActivity(intent);
+    				}
 					return true;
 				}
 				else {
