@@ -32,10 +32,15 @@ public class Main extends Activity {
 					return true;
 				}
 				if(url.startsWith("mailto:")) {
-					Intent mail = new Intent(Intent.ACTION_SEND);
-					mail.setType("text/plain");
-					mail.putExtra(Intent.EXTRA_EMAIL, new String[] {url.substring(7)});
-					startActivity(mail);
+					Intent intent = new Intent(Intent.ACTION_SENDTO);
+					intent.setType("text/plain");
+					/*
+					intent.putExtra(Intent.EXTRA_SUBJECT, "Subject of email");
+					intent.putExtra(Intent.EXTRA_TEXT, "Body of email");
+					*/
+					intent.setData(Uri.parse(url));
+					intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // this will make such that when user returns to your app, your app is displayed, instead of the email app.
+					startActivity(intent);
 					return true;
 				}
 				else {
