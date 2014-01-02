@@ -91,6 +91,8 @@ public class Main extends Activity {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
+		webSettings.setAllowFileAccessFromFileURLs(true); //Maybe you don't need this rule
+		webSettings.setAllowUniversalAccessFromFileURLs(true);
         
     }
     

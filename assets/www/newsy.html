@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.1//EN"
-    "http://www.w3.org/TR/xhtml-basic/xhtml-basic11.dtd">
+<!doctype html>
 <html>
 <head>
 <link rel="stylesheet" href="css/style.css" type="text/css"/>
@@ -8,10 +6,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
 </head>
 <body>
-	<div align="center">
-		<h1>Na razie brak newsów :(</h1>
-		Zapraszamy wkrótce
-	</div>
+  <p id="data">Poczekaj chwileczkę...</p>
 	<script type="text/javascript" src="js/jquery.js"></script>
+	<script>
+        $.ajax({
+            type: "GET",
+            url: "http://volodia.sdf.org/xml.xml",
+            cache: false,
+            dataType: "xml",
+            success: function(xml) {
+				$("#data").replaceWith('<p id="data"></p>');
+                $(xml).find('item').each(function(){
+					$("#data").append("<h2>"+$(this).find("title").text()+"</h2>");
+					$("#data").append("<small><i>"+$(this).find("date").text()+"</i></small><p/>");
+					$("#data").append($(this).find("text").text());
+                });
+            }
+        });
+	</script>
 </body>
 </html>
