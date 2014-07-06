@@ -1,5 +1,4 @@
 #ExodusMlodych
-=============
 
 Web-based mobile app for Android for www.exodusmlodych.pl
 
