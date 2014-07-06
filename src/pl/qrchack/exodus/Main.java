@@ -4,6 +4,7 @@ import pl.qrchack.exodus.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 // import android.view.KeyEvent;
 import android.webkit.WebChromeClient;
@@ -91,8 +92,9 @@ public class Main extends Activity {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
-		webSettings.setAllowFileAccessFromFileURLs(true); //Maybe you don't need this rule
-		webSettings.setAllowUniversalAccessFromFileURLs(true);
+        if (Build.VERSION.SDK_INT >= 16) {
+            webSettings.setAllowUniversalAccessFromFileURLs(true); // from API JELLY_BEAN (16)
+        }
         
     }
     
