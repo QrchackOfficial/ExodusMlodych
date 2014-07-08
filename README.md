@@ -2,6 +2,8 @@
 
 Web-based mobile app for Android for www.exodusmlodych.pl
 
+![screen](http://i.imgur.com/divPPEG.png)
+
 ###TODO list
 - [x] fix crash on < API 16 (4.1) (Qrchack)
 - [ ] fix display issue on API 10 (2.3.x) (Qrchack)
