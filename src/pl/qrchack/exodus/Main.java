@@ -81,7 +81,7 @@ public class Main extends Activity {
 				}
 			}
             public void onReceivedError(WebView view, int errorCode, String description, String url) {
-				//webView.loadUrl("file:///android_asset/www/error.html");
+				webView.loadUrl("file:///android_asset/www/error.html");
             }
         });
         webView.loadUrl("file:///android_asset/www/index.html");
