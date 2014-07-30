@@ -1,8 +1,13 @@
 package pl.qrchack.exodus;
 
-import pl.qrchack.exodus.R;
+import java.io.IOException;
+
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.res.AssetFileDescriptor;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,25 +16,26 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.*;
-import android.content.Context;
-import android.app.*;
-import java.net.*;
-import android.content.pm.PackageManager.*;
-import android.content.pm.*;
-import android.content.*;
+import android.widget.Toast;
 
 public class Main extends Activity {
     WebView webView;
-
+    private MediaPlayer mp;
+    AssetFileDescriptor afd;
+    private String prevUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        
+        mp = new MediaPlayer();
+        
+        prevUrl = "";
+        
         setContentView(R.layout.main);
         webView = (WebView)findViewById(R.id.fullscreen_content);
         webView.setWebViewClient(new WebViewClient() {
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				
 				if(url.startsWith("tel:")) {
 					Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse(url));
 					startActivity(dial);
@@ -75,6 +81,66 @@ public class Main extends Activity {
     				}
 					return true;
 				}
+		        if (url.endsWith(".mp3") || url.endsWith(".ogg")) {
+
+		        	try {
+			        	boolean IsPlaying = mp.isPlaying();
+			        	boolean IsDifferent = false;
+			        	int choose;
+			        	choose = 0;
+			        	url = url.replace("file:///android_asset/", ""); /// :D xD thumb up ;P
+						afd = getAssets().openFd(url);
+			        	
+						if(IsPlaying)
+							choose +=1;
+						
+						if(prevUrl != url)
+							IsDifferent = true;
+						
+						
+						if(IsDifferent)
+							choose +=2;
+						
+		        		
+						switch(choose)
+						{
+							case 1: // IsPlaying
+								mp.stop();
+								break;
+							case 3: // IsPlaying & IsDifferent
+								mp.stop();
+								
+								prevUrl = url;
+			        			
+			        			mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+				        		mp.prepare();
+				        		mp.start();
+				        		break;
+							case 2: // IsDifferent ...
+								prevUrl = url;
+							case 0: // ... or the same BUT NOT PLAYING
+								prevUrl = url;
+			        			
+			        			mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+				        		mp.prepare();
+				        		mp.start();
+								break;
+								default: throw new Exception();
+							}	
+					
+	        		
+						
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						Toast.makeText(getApplicationContext(), "IOException", Toast.LENGTH_LONG).show();
+						e.printStackTrace();
+					} catch (Exception e)
+					{
+						Toast.makeText(getApplicationContext(), "Exception - STH STUPID!!!", Toast.LENGTH_LONG).show();
+						e.printStackTrace();
+					}
+		            return true;
+		        }
 				else {
 					view.loadUrl(url);
 					return false;
