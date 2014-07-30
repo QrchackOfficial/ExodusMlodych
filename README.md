@@ -9,14 +9,15 @@ Link to download last uploaded version to Google Play is [here](https://play.goo
 ###TODO list
 - [x] fix crash on < API 16 (4.1) (Qrchack)
 - [x] fix display issue on API 10 (2.3.x) (Qrchack)
-- [ ] something like rating&counter for Anielsi's songs...
-- [ ] add registered people counter (Volodia)
+- [-] ~~something like rating&counter for Anielsi's songs...~~
+- [ ] add registered people counter (Volodia) => New page integration? [#6](https://github.com/QrchackOfficial/ExodusMlodych/issues/6)
 - [ ] add some nice background
 - [x] replace graphics (logo)
+- [ ] upgrade graphics (transparency)
 - [x] replace content (guests, toolbox)
 - [ ] reproduce [#6](https://github.com/QrchackOfficial/ExodusMlodych/issues/6)
 - [ ] short prayer book (?)
-- [ ] 
+- [x] sth stupid, cause  i cannot think bałt things but sax man... (next Issue: change bałt occur. to bełt)
 
 ###Timeline
 - [x] beta version working on API 10 (2.3.x) [~ 12.07.14]
