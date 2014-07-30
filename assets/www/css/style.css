@@ -1,17 +1,35 @@
 /* reset */
 html, body {
-	background-color: #ffffff;
+	background-color: #000000;
 	/*
 	padding: 0;
 	margin: 0;
 	*/
-	color: #000000;
+	padding-top: 60pt;
+	color: #fff;
 	font-family: sans-serif;
 	height: 100%;
+
+}
+
+#back {
+	margin: 0; 
+	position: absolute;
+	background-image: url('../img/background.png');
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-clip: content-box; 
+}
+
+
+body {
+	background-color:rgba(255,255,255,0);
+	padding: 0;
+	margin-bottom: 30 pt;
 }
 
 h1, h2 {
-	color: #ff8800;
+	color: #FFF391;
 }
 
 ul {
@@ -33,6 +51,7 @@ a {
 }
 
 .button {
+	color: #D14C1E;
 	display: inline-block;
 	zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
 	*display: inline;
@@ -82,18 +101,18 @@ a {
 
 /* orange */
 .orange {
-	color: #fef4e9;
-	border: solid 1px #da7c0c;
+	color: #D14C1E;
+	border: solid 1px #D99F28;
 	background: #f78d1d;
-	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
-	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
+	background: -webkit-gradient(linear, left top, left bottom, from(#E9DEB0), to(#FCD13C));
+	background: -moz-linear-gradient(top,  #E9C58B,  #FC623C);
 }
 .orange:hover {
-	background: #f47c20;
-	background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
-	background: -moz-linear-gradient(top,  #f88e11,  #f06015);
+	background: #ED9156;
+	background: -webkit-gradient(linear, left top, left bottom, from(#FFEDE6), to(#FFDCD0));
+	background: -moz-linear-gradient(top,  #FFEDE6,  #FFDCD0);
 }
-.orange:active {
+	.orange:active {
 	color: #fcd3a5;
 	background: -webkit-gradient(linear, left top, left bottom, from(#f47a20), to(#faa51a));
 	background: -moz-linear-gradient(top,  #f47a20,  #faa51a);
