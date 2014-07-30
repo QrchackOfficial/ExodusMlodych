@@ -23,6 +23,7 @@ public class Main extends Activity {
     private MediaPlayer mp;
     AssetFileDescriptor afd;
     private String prevUrl;
+    int choose;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +87,7 @@ public class Main extends Activity {
 		        	try {
 			        	boolean IsPlaying = mp.isPlaying();
 			        	boolean IsDifferent = false;
-			        	int choose;
+			        	
 			        	choose = 0;
 			        	url = url.replace("file:///android_asset/", ""); /// :D xD thumb up ;P
 						afd = getAssets().openFd(url);
@@ -136,7 +137,7 @@ public class Main extends Activity {
 						e.printStackTrace();
 					} catch (Exception e)
 					{
-						Toast.makeText(getApplicationContext(), "Exception - STH STUPID!!!", Toast.LENGTH_LONG).show();
+						Toast.makeText(getApplicationContext(), "Exception - STH STUPID!!!" + choose, Toast.LENGTH_LONG).show();
 						e.printStackTrace();
 					}
 		            return true;
