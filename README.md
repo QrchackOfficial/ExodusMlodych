@@ -9,7 +9,7 @@ Link to download last uploaded version to Google Play is [here](https://play.goo
 ###TODO list
 - [x] fix crash on < API 16 (4.1) (Qrchack)
 - [x] fix display issue on API 10 (2.3.x) (Qrchack)
-- [-] ~~something like rating&counter for Anielsi's songs...~~
+- [x] ~~something like rating&counter for Anielsi's songs...~~
 - [ ] add registered people counter (Volodia) => New page integration? [#6](https://github.com/QrchackOfficial/ExodusMlodych/issues/6)
 - [ ] add some nice background
 - [x] replace graphics (logo)
