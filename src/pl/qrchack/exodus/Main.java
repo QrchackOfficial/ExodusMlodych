@@ -105,8 +105,6 @@ public class Main extends Activity {
 			        	}
 					}
 					catch (IOException e) {
-						/
-						/ TODO Auto-generated catch block
 						Toast.makeText(getApplicationContext(), "IOException: "+e.getMessage(), Toast.LENGTH_LONG).show();
 						e.printStackTrace();
 					
