@@ -18,25 +18,31 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+
 public class Main extends Activity {
     WebView webView;
     private MediaPlayer mp;
     AssetFileDescriptor afd;
-    private String prevUrl;
-    int choose;
+    public static String prevUrl;/*
+    public boolean IsPlaying;
+    public boolean IsDifferent;
+    public int choose;*/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
         mp = new MediaPlayer();
         
-        prevUrl = "";
+        /*IsPlaying = false;
+        IsDifferent = false;
+        choose = 0;*/
         
         setContentView(R.layout.main);
         webView = (WebView)findViewById(R.id.fullscreen_content);
-        webView.setWebViewClient(new WebViewClient() {
-			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-				
+        webView.setWebViewClient(new WebViewClient(){
+
+			public boolean shouldOverrideUrlLoading(WebView view, String url) {	
 				if(url.startsWith("tel:")) {
 					Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse(url));
 					startActivity(dial);
@@ -85,59 +91,89 @@ public class Main extends Activity {
 		        if (url.endsWith(".mp3") || url.endsWith(".ogg")) {
 
 		        	try {
-			        	boolean IsPlaying = mp.isPlaying();
-			        	boolean IsDifferent = false;
-			        	
-			        	choose = 0;
 			        	url = url.replace("file:///android_asset/", ""); /// :D xD thumb up ;P
 						afd = getAssets().openFd(url);
-			        	
-						if(IsPlaying)
-							choose +=1;
 						
+						//Toast.makeText(getApplicationContext(), "choose: "+choose + " " + prevUrl + " " + url, Toast.LENGTH_LONG).show();
+						
+						if( url.equals(Main.prevUrl)){
+							Toast.makeText(getApplicationContext(), "te same", Toast.LENGTH_LONG).show();
+							mp.stop();
+							Main.prevUrl="";
+						}
+						else 
+						{
+								Toast.makeText(getApplicationContext(), "inne", Toast.LENGTH_LONG).show();
+								if (mp.isPlaying())
+									mp.stop();
+	
+				        	Main.prevUrl=url;
+								
+							mp.reset();
+		        			mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+			        		mp.prepare();
+			        		mp.start();
+						
+						}
+/*
 						if(prevUrl != url)
+						{   
 							IsDifferent = true;
+							if(choose<2)choose +=2;
+						}else
+						{
+							IsDifferent = false;
+							if(choose>1)choose -=2;
+						}
+
+						prevUrl = url;
 						
-						
-						if(IsDifferent)
-							choose +=2;
-						
-		        		
 						switch(choose)
 						{
 							case 1: // IsPlaying
 								mp.stop();
+								IsPlaying = false;
+			        			choose -= 1;
 								break;
 							case 3: // IsPlaying & IsDifferent
 								mp.stop();
 								
+								IsPlaying = false;
+			        			choose -= 1;
 								prevUrl = url;
 			        			
+			        			mp.reset();		
 			        			mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
 				        		mp.prepare();
 				        		mp.start();
 				        		break;
 							case 2: // IsDifferent ...
-								prevUrl = url;
+								IsPlaying = true;
+			        			choose += 1;
+			        			mp.reset();
+								mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+				        		mp.prepare();
+				        		mp.start();
+								break;
 							case 0: // ... or the same BUT NOT PLAYING
-								prevUrl = url;
-			        			
+			        			IsPlaying = true;
+			        			choose += 1;
+			        			mp.reset();
 			        			mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
 				        		mp.prepare();
 				        		mp.start();
 								break;
 								default: throw new Exception();
-							}	
-					
-	        		
+							}*/
 						
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
-						Toast.makeText(getApplicationContext(), "IOException", Toast.LENGTH_LONG).show();
+						Toast.makeText(getApplicationContext(), "IOException: "+e.getMessage(), Toast.LENGTH_LONG).show();
 						e.printStackTrace();
+					
 					} catch (Exception e)
 					{
-						Toast.makeText(getApplicationContext(), "Exception - STH STUPID!!!" + choose, Toast.LENGTH_LONG).show();
+						Toast.makeText(getApplicationContext(), "Exception: "+e.getMessage(), Toast.LENGTH_LONG).show();
 						e.printStackTrace();
 					}
 		            return true;
