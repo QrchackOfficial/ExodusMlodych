@@ -24,4 +24,7 @@ Link to download last uploaded version to Google Play is [here](https://play.goo
 - [x] music content (themes for meetings), allow to put it from Anielsi Band [~ 15.07.14] => [30.07.14]
 - [ ] **5th song from Anielsi** [8.08.14]
 - [ ] spellchecking, text corrections [~ 19.07.14] => [8.08.14]
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e67814668f25ae08825e1e9bff87ce5da6586be
