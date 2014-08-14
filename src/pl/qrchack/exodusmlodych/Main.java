@@ -1,4 +1,4 @@
-package pl.qrchack.exodus;
+package pl.qrchack.exodusmlodych;
 
 // Imports
 import java.io.IOException;
@@ -49,6 +49,39 @@ public class Main extends Activity {
 					intent.setData(Uri.parse(url));
 					intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					startActivity(intent);
+
+					return true;
+				}
+				if (url.startsWith("market:")) {
+					url = url.substring(7,url.length());
+					String prefixMarket;
+					String prefixPage;
+					
+					if(url.contains("id="))
+					{
+						prefixMarket = "market://details?";
+						prefixPage = "http://play.google.com/store/apps/details?";
+					}else if(url.contains("q=pub:"))
+					{
+						prefixMarket = "market://search?";
+						prefixPage = "http://play.google.com/store/search?";
+					}else if(url.contains("q="))
+					{
+						prefixMarket = "market://search?";
+						prefixPage = "http://play.google.com/store/search?";
+					}else{
+						return false;
+					}
+					
+					
+					try {
+						Intent intent = new Intent(Intent.ACTION_VIEW);
+						intent.setData(Uri.parse(prefixMarket + url));
+						startActivity(intent);
+					
+					} catch (android.content.ActivityNotFoundException anfe) {
+						    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(prefixPage + url)));
+					}
 
 					return true;
 				}
