@@ -7,11 +7,11 @@
 </head>
 <body>
   <p id="data">Poczekaj chwileczkę...</p>
-	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="file:///android_asset/www/js/jquery.js"></script>
 	<script>
         $.ajax({
             type: "GET",
-            url: "http://volodia.pl/exodus/xml.php",
+            url: "http://www.volodia.pl/exodus/xml.php",
             cache: false,
             dataType: "xml",
             success: function(xml) {
@@ -19,7 +19,7 @@
                 $(xml).find('item').each(function(){
 					$("#data").append("<h2>"+$(this).find("title").text()+"</h2>");
 					$("#data").append("<small><i>"+$(this).find("date").text()+"</i></small><p/>");
-					$("#data").append($(this).find("text").text());
+					$("#data").append($(this).find("intro").text());
                 });
             }
         });
